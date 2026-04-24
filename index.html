@@ -115,23 +115,27 @@
 
     /* ── HERO ── */
     .hero {
-      height: 88dvh;
-      min-height: -webkit-fill-available;
-      background-color: #e8d5c4;
-      background: url('images/hero-image.jpeg') 20% center/ cover no-repeat;
-      display: flex;
-      align-items: center;
-      padding: clamp(80px, 10vw, 120px) clamp(20px, 8vw, 120px) clamp(40px, 6vw, 80px);
-      position: relative;
-       
-    }
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.hero-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: auto;          /* 👈 KEY: prevents cropping */
+  object-fit: contain;  /* 👈 full packet always visible */
+}
 
     .hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 500px;
-      width: 100%;
-    }
+  position: absolute;
+  left: 8%;
+  bottom: 15%;
+  max-width: 420px;
+  z-index: 2;
+}
 
     .hero-content h1 {
       font-size: clamp(28px, 5vw, 52px);
@@ -776,14 +780,26 @@
     <a href="/subscribe" class="nav-subscribe">Subscribe</a>
   </nav>
 
-  <!-- HERO -->
+  <!-- HERO 
   <section class="hero">
     <div class="hero-content">
       <h1>FUTURE SHAPED BY CHOICE.</h1>
       <p>Fresh millet dosa batter delivered daily. Healthy, preservative-free, and crafted for modern lifestyles.</p>
       <a href="https://wa.me/919502487169" target="_blank" class="btn btn-dark">Order Now</a>
     </div>
-  </section>
+  </section> -->
+  <section class="hero">
+  <img src="images/hero-image.jpeg" class="hero-img" />
+
+  <div class="hero-content">
+    <h1>FUTURE SHAPED BY CHOICE.</h1>
+    <p>
+      Fresh millet dosa batter delivered daily. Healthy,
+      preservative-free, and crafted for modern lifestyles.
+    </p>
+    <a href="https://wa.me/919502487169" target="_blank" class="btn btn-dark">Order Now</a>
+  </div>
+</section>
 
   <!-- ABOUT -->
   <section id="about-us" class="about-section">
