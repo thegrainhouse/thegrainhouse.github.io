@@ -119,7 +119,7 @@
       background: url('images/hero-image.jpeg') 70% center / cover no-repeat;
       display: flex;
       align-items: center;
-      padding: clamp(40px, 8vw, 120px) clamp(20px, 8vw, 120px);
+      padding: clamp(100px, 12vw, 140px) clamp(20px, 8vw, 120px) clamp(40px, 6vw, 80px);
       position: relative;
       padding-top: 100px; 
     }
@@ -665,12 +665,13 @@
       /* Hero */
       .hero {
         min-height: 85vh;
-        background-position: center center;
+        background-position: 75% center;
         padding: 40px 20px;
         justify-content: center;
         text-align: center;
+        align-items: flex-end
       }
-      .hero-content { max-width: 100%; }
+      .hero-content { max-width: 60%; }
 
       /* Products → stack vertically */
       .product-row {
