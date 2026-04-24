@@ -115,10 +115,10 @@
 
     /* ── HERO ── */
     .hero {
-      height: 80dvh;
+      height: 85dvh;
       min-height: -webkit-fill-available;
       background-color: #e8d5c4;
-      background: url('images/hero-image.jpeg') 70% center/ cover no-repeat;
+      background: url('images/hero-image.jpeg') 60% center/ cover no-repeat;
       display: flex;
       align-items: center;
       padding: clamp(80px, 10vw, 120px) clamp(20px, 8vw, 120px) clamp(40px, 6vw, 80px);
@@ -666,15 +666,23 @@
 
       /* Hero */
       .hero {
+        position: relative;
         min-height: 85vh;
+        background: url('images/hero-image.jpeg') right center / cover no-repeat;
         background-position: center top;
         background-size: contain;
         padding: 40px 20px;
+        display: flex;
         justify-content: flex-start;
         text-align: left;
-        align-items: flex-end;
+        align-items: center;
       }
-      .hero-content { max-width: 55%; }
+      .hero-content { max-width: 55%; 
+                    position: absolute;
+                    left: 20px;
+    bottom: 40px;
+                     z-index: 2;
+                    }
 
       /* Products → stack vertically */
       .product-row {
