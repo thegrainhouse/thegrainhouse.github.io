@@ -3,70 +3,124 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#000000">
   <title>The Grain House</title>
-
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
   <style>
-    *, *::before, *::after {
-  box-sizing: border-box;
-}
-    body {
-      margin: 0;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      overflow-x: hidden;
       font-family: 'Poppins', sans-serif;
       background: #f5f0e6;
       color: #0d0d0d;
       scroll-behavior: smooth;
     }
 
-    /* HEADER */
+    /* ── HEADER ── */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0px 20px;
+      padding: 0 20px;
+      position: -webkit-sticky;
       position: sticky;
       top: 0;
-      height: 90px;
-      background: #000000;
+      height: 70px;
+      background: #000;
       z-index: 1000;
     }
 
     header img {
-      height: 100%;
-      max-height: 110px;
+      height: 60px;
       width: auto;
       object-fit: contain;
     }
 
-    nav a {
-      margin: 0 20px;
-      text-decoration: none;
-      color: #cfcfcf;
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s;
     }
 
-    nav a:hover {
-      color: #fff;
-    }
-
-    /* HERO SECTION */
-    .hero {
-      height: 100vh;
-      background: url('images/hero-image.jpeg') 85% center/cover no-repeat;
+    nav {
       display: flex;
       align-items: center;
-      padding: clamp(40px, 5vw, 100px) clamp(20px, 8vw, 120px);
-      position: relative;
+      gap: 4px;
+      flex-wrap: wrap;
     }
 
-    .hero::after {
-      content: "";
+    nav a {
+      padding: 6px 12px;
+      text-decoration: none;
+      color: #cfcfcf;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    nav a:hover { color: #fff; }
+
+    .nav-subscribe {
+      background: #fff;
+      color: #111 !important;
+      font-weight: 600;
+      border-radius: 6px;
+      padding: 7px 18px !important;
+    }
+
+    /* Mobile nav drawer */
+    .nav-drawer {
+      display: none;
+      flex-direction: column;
+      background: #111;
       position: absolute;
-      top: 0;
+      top: 70px;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0);
+      padding: 1rem 1.5rem;
+      gap: 0;
+      z-index: 999;
+    }
+    .nav-drawer a {
+      color: #cfcfcf;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #222;
+    }
+    .nav-drawer a:last-child { border-bottom: none; }
+    .nav-drawer .nav-subscribe {
+      background: #fff;
+      color: #111 !important;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 10px;
+      border-bottom: none;
+    }
+    .nav-drawer.open { display: flex; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      background: url('images/hero-image.jpeg') 85% center / cover no-repeat;
+      display: flex;
+      align-items: center;
+      padding: clamp(40px, 8vw, 120px) clamp(20px, 8vw, 120px);
+      position: relative;
     }
 
     .hero-content {
@@ -77,451 +131,420 @@
     }
 
     .hero-content h1 {
-      font-size: 52px;
-      color: #000000;
+      font-size: clamp(28px, 5vw, 52px);
+      color: #000;
+      line-height: 1.2;
     }
 
     .hero-content p {
-      color: #000000;
+      color: #000;
       margin-top: 10px;
+      font-size: clamp(14px, 2vw, 16px);
     }
 
-    /* BUTTON */
     .btn {
-      padding: 14px 28px;
-      max-width: 100%;
-      box-sizing: border-box;
+      padding: 12px 26px;
       border: none;
       cursor: pointer;
       margin-top: 20px;
       text-decoration: none;
       display: inline-block;
+      font-size: 14px;
+      border-radius: 4px;
     }
+    .btn-dark { background: #0f0f0f; color: #fff; }
+    .btn-dark:hover { opacity: 0.85; }
 
-    .btn-dark {
-      background: #0f0f0f;
-      color: #fff;
-      padding: 14px 28px;
-      border: none;
-    }
-
-    .btn-dark:hover {
-      opacity: 0.9;
-    }
-
-    /* SECTIONS */
-    .section {
-      padding: 80px 40px;
-    }
-
-    .light { background: #ffffff; }
-    .grey { background: #d9d9d9; }
-    .beige { background: #e8e0d5; }
-
-    /* GRID */
-    .grid {
+    /* ── ABOUT ── */
+    .about-section {
+      background: #e8e0d5;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 4vw, 2rem);
       display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
     }
 
-    .card {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      flex: 1;
-      min-width: 250px;
+    .about-title {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1.25rem;
     }
 
-    .card img {
-      width: 100%;
-      border-radius: 8px;
-    }
-
-    /* FEATURES */
-    .features {
+    .about-blocks {
       display: flex;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    .feature {
-      flex: 1;
-      min-width: 200px;
-    }
-
-    /* FORM */
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-    }
-
-    /* FOOTER */
-    .footer {
-      background: #0f0f0f;
-      padding: 40px;
-      color: #888;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-     /* Divider between rows */
-  .product-divider {
-    border: none;
-    border-top: 1px solid #f0f0f0;
-    margin-bottom: 3rem;
-  }
-.products-section {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 4rem 2rem;
-  }
-
-  .section-title {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 700;
-    margin-bottom: 4rem;
-    color: #111;
-  }
-
-  /* Each product row */
-  .product-row {
-    display: flex;
-    align-items: center;
-    min-height: 480px;
-    margin-bottom: 3rem;
-    gap: 0;
-  }
-
-  .product-row:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Image side */
-  .product-image {
-    flex: 0 0 50%;
-    height: 460px;
-    overflow: hidden;
-    border-radius: 16px;
-  }
-
-  .product-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-  }
-
-  .product-image:hover img {
-    transform: scale(1.03);
-  }
-
-  /* Text side */
-  .product-text {
-    flex: 0 0 50%;
-    padding: 3rem 4rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  /* Alternating: odd rows — image left, text right */
-  .product-row.img-left  .product-image { order: 1; }
-  .product-row.img-left  .product-text  { order: 2; }
-
-  /* Even rows — text left, image right */
-  .product-row.img-right .product-image { order: 2; }
-  .product-row.img-right .product-text  { order: 1; }
-
-  .product-tag {
-    display: inline-block;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #7a6a3e;
-    background: #f5f0e6;
-    padding: 4px 12px;
-    border-radius: 20px;
-    margin-bottom: 1rem;
-    width: fit-content;
-  }
-
-  .product-name {
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.1rem;
-    color: #111;
-  }
-
-  .product-desc {
-    font-size: 1rem;
-    color: #555;
-    line-height: 1.8;
-    margin-bottom: 1.75rem;
-  }
-
-  .product-highlights {
-    list-style: none;
-    margin-bottom: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .product-highlights li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 16px;
-    color: #444;
-  }
-
-  .product-highlights li::before {
-    content: '';
-    width: 12px;
-    height: 10px;
-    border-radius: 50%;
-    background: #7a6a3e;
-    flex-shrink: 0;
-  }
-.about-section {
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .about-title {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 1.5rem;
-  }
-
-  .about-blocks {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    max-width: 960px;
-    width: 100%;
-  }
-
-  .about-block {
-    width: 100%;
-  }
-
-  .about-block p {
-    font-size: 15px;
-    color: #2e2a22;
-    line-height: 1.85;
-  }
-.section-title {
-    text-align: center;
-    font-size: 2.6rem;
-    font-weight: 800;
-    color: #2c3a1e;
-    font-family: Georgia, 'Times New Roman', serif;
-    margin-bottom: 0.5rem;
-  }
-
-  .section-sub {
-    text-align: center;
-    font-size: 15px;
-    color: #6b6355;
-    margin-bottom: 2.5rem;
-  }
-
-  .plans-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .plan-card {
-    background: #faf7f2;
-    border: 1px solid #e0d9cc;
-    border-radius: 18px;
-    padding: 2rem 1.75rem;
-  }
-
-  .plan-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #ede8df;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1rem;
-  }
-
-  .plan-icon svg {
-    width: 36px;
-    height: 36px;
-    stroke: #5a6640;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .plan-name {
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #2c3a1e;
-    font-family: Georgia, serif;
-    margin-bottom: 0.2rem;
-  }
-
-  .plan-persons {
-    text-align: center;
-    font-size: 13.5px;
-    color: #888070;
-    margin-bottom: 1.5rem;
-  }
-
-  .plan-rows {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
-  .plan-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    background: #f0ebe0;
-    border-radius: 10px;
-    padding: 0.75rem 1rem;
-  }
-
-  .row-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    background: #e4ddd0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .row-icon svg {
-    width: 18px;
-    height: 18px;
-    stroke: #5a6640;
-    fill: none;
-    stroke-width: 1.6;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .row-info {
-    flex: 1;
-  }
-
-  .row-freq {
-    font-size: 14px;
-    font-weight: 600;
-    color: #2c3a1e;
-  }
-
-  .row-days {
-    font-size: 12px;
-    color: #888070;
-    margin-top: 1px;
-  }
-
-  .row-price {
-    text-align: right;
-  }
-
-  .price-amount {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #2c3a1e;
-    line-height: 1;
-  }
-
-  .price-amount span {
-    font-size: 1rem;
-    font-weight: 500;
-  }
-
-  .price-label {
-    font-size: 11px;
-    color: #888070;
-    margin-top: 2px;
-  }
-:root {
-      --beige:      #f5f0e8;
-      --beige-dark: #e8e0d0;
-      --white:      #ffffff;
-      --grey-light: #f4f4f4;
-      --grey-mid:   #d4d4d4;
-      --grey-text:  #6b6b6b;
-      --charcoal:   #1a1a1a;
-      --accent:     #444444;
-      --accent-border: #cccccc;
-      --active-bg:  #1a1a1a;
-      --active-text:#f5f0e8;
-      --radius:     10px;
-      --shadow:     0 4px 24px rgba(0,0,0,0.07);
-    }
-    .faq-section {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--beige);
-  color: var(--charcoal);
-  padding: 60px 20px;
-      display: flex;
-  justify-content: center;
-}
-.faq-wrapper {
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
       max-width: 960px;
       width: 100%;
     }
 
-    /* Header */
-    .faq-header {
-      text-align: center;
-      margin-bottom: 52px;
-    }
-    .faq-header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      font-weight: 700;
-      color: var(--charcoal);
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
-      width: 100%;
-      text-align: center;
-    }
-    .faq-header p {
-      font-size: 0.92rem;
-      color: var(--grey-text);
-      font-weight: 300;
-      letter-spacing: 0.3px;
+    .about-block p {
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: #2e2a22;
+      line-height: 1.85;
     }
 
-    /* Main layout */
+    /* ── PRODUCTS ── */
+    .products-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: clamp(2rem, 4vw, 4rem);
+      color: #111;
+    }
+
+    .product-divider {
+      border: none;
+      border-top: 1px solid #f0f0f0;
+      margin-bottom: clamp(1.5rem, 3vw, 3rem);
+    }
+
+    .product-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: clamp(1.5rem, 3vw, 3rem);
+      gap: 0;
+    }
+    .product-row:last-child { margin-bottom: 0; }
+
+    .product-image {
+      flex: 0 0 50%;
+      height: clamp(260px, 35vw, 460px);
+      overflow: hidden;
+      -webkit-border-radius: 16px;
+      border-radius: 16px;
+    }
+    .product-image img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: cover;
+      object-fit: cover;
+      display: block;
+      -webkit-transition: -webkit-transform 0.5s ease;
+      transition: transform 0.5s ease;
+    }
+    .product-image:hover img { transform: scale(1.03); }
+
+    .product-text {
+      flex: 0 0 50%;
+      padding: clamp(1.5rem, 3vw, 3rem) clamp(1rem, 3vw, 4rem);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .product-row.img-left  .product-image { order: 1; }
+    .product-row.img-left  .product-text  { order: 2; }
+    .product-row.img-right .product-image { order: 2; }
+    .product-row.img-right .product-text  { order: 1; }
+
+    .product-tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #7a6a3e;
+      background: #f5f0e6;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 0.9rem;
+      width: -webkit-fit-content;
+      width: fit-content;
+    }
+
+    .product-name {
+      font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 0.9rem;
+      color: #111;
+    }
+
+    .product-desc {
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .product-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .product-highlights li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: clamp(13px, 1.4vw, 15px);
+      color: #444;
+    }
+    .product-highlights li::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #7a6a3e;
+      flex-shrink: 0;
+    }
+
+    /* ── SUBSCRIPTION PLANS ── */
+    #subscription-plans {
+      padding: clamp(2rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
+      background: #f5f0e6;
+    }
+
+    .sub-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 800;
+      color: #2c3a1e;
+      font-family: Georgia, serif;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-sub {
+      text-align: center;
+      font-size: clamp(13px, 1.5vw, 15px);
+      color: #6b6355;
+      margin-bottom: 2rem;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .plan-card {
+      background: #faf7f2;
+      border: 1px solid #e0d9cc;
+      border-radius: 18px;
+      padding: clamp(1.25rem, 2vw, 2rem) clamp(1rem, 2vw, 1.75rem);
+    }
+
+    .plan-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #ede8df;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+    .plan-icon svg {
+      width: 36px; height: 36px;
+      stroke: #5a6640; fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .plan-name {
+      text-align: center;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      color: #2c3a1e;
+      font-family: Georgia, serif;
+      margin-bottom: 0.2rem;
+    }
+
+    .plan-persons {
+      text-align: center;
+      font-size: 13px;
+      color: #888070;
+      margin-bottom: 1.25rem;
+    }
+
+    .plan-rows { display: flex; flex-direction: column; gap: 0.75rem; }
+
+    .plan-row {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      background: #f0ebe0;
+      border-radius: 10px;
+      padding: 0.65rem 0.85rem;
+    }
+
+    .row-icon {
+      width: 34px; height: 34px;
+      border-radius: 8px;
+      background: #e4ddd0;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .row-icon svg {
+      width: 16px; height: 16px;
+      stroke: #5a6640; fill: none;
+      stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .row-info { flex: 1; }
+    .row-freq { font-size: 13px; font-weight: 600; color: #2c3a1e; }
+    .row-days { font-size: 11px; color: #888070; margin-top: 1px; }
+
+    .row-price { text-align: right; }
+    .price-amount { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; color: #2c3a1e; line-height: 1; }
+    .price-amount span { font-size: 0.9rem; font-weight: 500; }
+    .price-label { font-size: 10px; color: #888070; margin-top: 2px; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-section {
+      padding: clamp(2rem, 4vw, 4rem) 0 1rem;
+      background: #fff;
+    }
+
+    .testimonials-section h2 {
+      text-align: center;
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: #111;
+      margin-bottom: 1.5rem;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 8px;
+    }
+
+    .arrow-btn {
+      flex-shrink: 0;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      line-height: 1;
+      transition: background 0.2s;
+      z-index: 5;
+    }
+    .arrow-btn:hover { background: #333; }
+    .arrow-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    .track-outer {
+      flex: 1;
+      overflow: hidden;
+      padding: 1rem 0 1.25rem;
+    }
+
+    .track {
+      display: flex;
+      -webkit-transition: -webkit-transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card {
+      flex: 0 0 33.333%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0.75rem 1rem;
+      transition: all 0.4s ease;
+    }
+    .card.side { opacity: 0.38; -webkit-transform: scale(0.87); transform: scale(0.87); }
+    .card.active { opacity: 1; -webkit-transform: scale(1); transform: scale(1); }
+
+    .avatar {
+      width: clamp(60px, 10vw, 90px);
+      height: clamp(60px, 10vw, 90px);
+      border-radius: 50%;
+      background: #d4d4d4;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+      display: flex; align-items: flex-end; justify-content: center;
+      flex-shrink: 0;
+    }
+    .card.active .avatar { background: #b8b8b8; }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .avatar svg { width: 64px; height: 64px; margin-bottom: -2px; }
+
+    .name { font-size: clamp(12px, 2vw, 15px); color: #111; margin-bottom: 0.1rem; }
+    .card.side .name { font-weight: 400; color: #999; }
+    .card.active .name { font-weight: 700; }
+
+    .role { font-size: clamp(10px, 1.5vw, 12px); color: #aaa; margin-bottom: 0.5rem; }
+    .card.active .role { color: #888; }
+
+    .review { font-size: clamp(11px, 1.5vw, 13.5px); color: #555; line-height: 1.55; }
+    .card.side .review { color: #bbb; }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin: 0.75rem 0 1rem;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #ccc;
+      border: none; cursor: pointer; padding: 0;
+      transition: background 0.25s, transform 0.25s;
+    }
+    .dot.active { background: #111; transform: scale(1.25); }
+
+    /* ── FAQ ── */
+    :root {
+      --beige: #f5f0e8; --beige-dark: #e8e0d0;
+      --white: #fff; --grey-light: #f4f4f4; --grey-mid: #d4d4d4;
+      --grey-text: #6b6b6b; --charcoal: #1a1a1a;
+      --active-bg: #1a1a1a; --active-text: #f5f0e8;
+      --radius: 10px; --shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+
+    .faq-section {
+      background: var(--beige);
+      padding: clamp(2rem, 4vw, 4rem) clamp(1rem, 3vw, 2rem);
+      display: flex;
+      justify-content: center;
+    }
+
+    .faq-wrapper { max-width: 960px; width: 100%; }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: clamp(2rem, 4vw, 3.5rem);
+    }
+    .faq-header h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(1.4rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .faq-header p { font-size: 0.9rem; color: var(--grey-text); }
+
     .faq-body {
       display: grid;
-      grid-template-columns: 260px 1fr;
-      gap: 28px;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
       align-items: start;
     }
 
-    /* Left nav */
     .faq-nav {
       background: var(--white);
       border-radius: var(--radius);
@@ -534,34 +557,27 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 20px;
+      padding: 15px 18px;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 400;
       color: var(--charcoal);
       border-bottom: 1px solid var(--beige-dark);
       transition: background 0.2s, color 0.2s;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
     }
     .faq-nav-item:last-child { border-bottom: none; }
     .faq-nav-item:hover { background: var(--grey-light); }
-    .faq-nav-item.active {
-      background: var(--active-bg);
-      color: var(--active-text);
-      font-weight: 500;
-    }
-    .faq-nav-item .arrow {
-      font-size: 0.75rem;
-      opacity: 0.6;
-      transition: transform 0.2s;
-    }
+    .faq-nav-item.active { background: var(--active-bg); color: var(--active-text); font-weight: 500; }
+    .faq-nav-item .arrow { font-size: 0.75rem; opacity: 0.6; }
     .faq-nav-item.active .arrow { opacity: 1; }
 
-    /* Right accordion */
     .faq-accordion {
       display: flex;
       flex-direction: column;
-      gap: 0;
       background: var(--white);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
@@ -569,395 +585,182 @@
       overflow: hidden;
     }
 
-    .faq-item {
-      border-bottom: 1px solid var(--beige-dark);
-      transition: background 0.2s;
-    }
+    .faq-item { border-bottom: 1px solid var(--beige-dark); }
     .faq-item:last-child { border-bottom: none; }
 
     .faq-question {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 20px 24px;
+      padding: 18px 22px;
       cursor: pointer;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 500;
       color: var(--charcoal);
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
       user-select: none;
-      gap: 16px;
+      gap: 14px;
     }
     .faq-question:hover { background: var(--grey-light); }
-
-    .faq-item.open .faq-question {
-      border-bottom: 1px solid var(--beige-dark);
-      background: var(--grey-light);
-    }
+    .faq-item.open .faq-question { border-bottom: 1px solid var(--beige-dark); background: var(--grey-light); }
 
     .faq-toggle {
       flex-shrink: 0;
-      width: 26px;
-      height: 26px;
+      width: 26px; height: 26px;
       border-radius: 50%;
       border: 1.5px solid var(--grey-mid);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: flex; align-items: center; justify-content: center;
       font-size: 1.1rem;
-      color: var(--accent);
-      transition: background 0.2s, border-color 0.2s, transform 0.3s;
-      background: transparent;
+      color: var(--charcoal);
+      transition: background 0.2s, border-color 0.2s;
     }
-    .faq-item.open .faq-toggle {
-      background: var(--active-bg);
-      border-color: var(--active-bg);
-      color: var(--active-text);
-    }
+    .faq-item.open .faq-toggle { background: var(--active-bg); border-color: var(--active-bg); color: var(--active-text); }
 
     .faq-answer {
       max-height: 0;
       overflow: hidden;
+      -webkit-transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
       transition: max-height 0.38s cubic-bezier(0.4,0,0.2,1), padding 0.3s;
-      padding: 0 24px;
+      padding: 0 22px;
     }
-    .faq-item.open .faq-answer {
-      max-height: 300px;
-      padding: 16px 24px 20px;
-    }
-    .faq-answer p {
-      font-size: 0.865rem;
-      line-height: 1.7;
-      color: var(--grey-text);
-      font-weight: 300;
-    }
-.testimonials-section {
-  margin-top: 80px;   /* space from subscriptions */
-  margin-bottom: 80px;
-}
+    .faq-item.open .faq-answer { max-height: 300px; padding: 14px 22px 18px; }
+    .faq-answer p { font-size: 0.85rem; line-height: 1.7; color: var(--grey-text); }
 
-
-    @media (max-width: 768px) {
-      html, body {
-        overflow-x: hidden;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-      .faq-body { grid-template-columns: 1fr; }
-
-      .plans-grid { grid-template-columns: 1fr; }
-    .section-title { font-size: 2rem; }
-
-
-      .container, .wrapper {
-        width: 100%;
-        padding: 10px 15px;
-      }
-
-      .hero {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        gap: 15px;
-      }
-
-      .hero img {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-      }
-
-      .hero-content {
-        width: 100%;
-      }
-      .product-row {
-      flex-direction: column !important;
-      min-height: unset;
-    }
-    .product-row .product-image,
-    .product-row .product-text {
-      flex: unset;
-      width: 100%;
-      order: unset !important;
-    }
-    .product-row.img-right .product-image { order: 1 !important; }
-    .product-row.img-right .product-text  { order: 2 !important; }
-    .product-image { height: 280px; }
-    .product-text { padding: 2rem 1rem; }
-
-      .btn {
-  display: block;
-  width: 100%;
-  max-width: 100%;
-  text-align: center;
-}
-      h1 { font-size: 24px; }
-      h2 { font-size: 20px; }
-
-      p {
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .testimonials-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: visible;
-      }
-
-      .testimonial-card {
-        width: 90%;
-        max-width: 350px;
-        margin: 10px 0;
-        padding: 15px;
-        height: auto;
-        overflow: visible;
-      }
-
-      .testimonial-circle {
-        width: 60px;
-        height: 60px;
-        margin-top: 10px;
-      }
-
-      img {
-        max-width: 100%;
-        height: auto;
-      }
-
-      .row, .flex, .section-row {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      button {
-        width: 100%;
-        padding: 10px;
-      }
-
-      .section, .main, .content {
-        width: 100%;
-        overflow-x: hidden;
-      }
-    }
-
-    h2 {
-    text-align: center;
-    font-size: 1.9rem;
-    font-weight: 700;
-    color: #111;
-    margin-bottom: 2.5rem;
-  }
-
-  .carousel-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 860px;
-    margin: 0 auto;
-  }
-
-  .arrow-btn {
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: none;
-    background: #111;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    line-height: 1;
-    transition: background 0.2s;
-    z-index: 5;
-  }
-
-  .arrow-btn:hover { background: #333; }
-  .arrow-btn:disabled { background: #ccc; cursor: not-allowed; }
-
-  .track-outer {
-    flex: 1;
-    overflow: hidden;
-    padding: 1rem 0 1.5rem;
-  }
-
-  .track {
-    display: flex;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .card {
-    flex: 0 0 33.333%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 1rem 1.5rem;
-    transition: all 0.4s ease;
-  }
-
-  .card.side {
-    opacity: 0.38;
-    transform: scale(0.87);
-  }
-
-  .card.active {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .avatar {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: #d4d4d4;
-    overflow: hidden;
-    margin-bottom: 0.9rem;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  .card.active .avatar {
-    background: #b8b8b8;
-  }
-
-  .avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .avatar svg {
-    width: 64px;
-    height: 64px;
-    margin-bottom: -2px;
-  }
-
-  .name {
-    font-size: 15px;
-    color: #111;
-    margin-bottom: 0.15rem;
-  }
-
-  .card.side .name { font-weight: 400; color: #999; }
-  .card.active .name { font-weight: 700; }
-
-  .role {
-    font-size: 12px;
-    color: #aaa;
-    margin-bottom: 0.65rem;
-  }
-
-  .card.active .role { color: #888; }
-
-  .review {
-    font-size: 13.5px;
-    color: #555;
-    line-height: 1.55;
-  }
-
-  .card.side .review { color: #bbb; }
-
-  .dots {
-    display: flex;
-    justify-content: center;
-    gap: 7px;
-    margin-top: 1.25rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.25s, transform 0.25s;
-  }
-
-  .dot.active {
-    background: #111;
-    transform: scale(1.25);
-  }
-
-
-    .faq-container {
-      max-width: 800px;
-      margin: 40px auto;
-    }
-
-    .faq-category {
-      margin-bottom: 15px;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .faq-header {
-      width: 100%;
-      padding: 15px;
-      font-size: 18px;
-      font-weight: 600;
-      background: none;
-      border: none;
-      text-align: left;
+    /* ── FOOTER ── */
+    .footer {
+      background: #0f0f0f;
+      padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 4vw, 2.5rem);
+      color: #888;
       display: flex;
       justify-content: space-between;
-      cursor: pointer;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 14px;
     }
 
-    .faq-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s ease;
-      padding: 0 15px;
-      color: #555;
+    /* ══════════════════════════════
+       RESPONSIVE BREAKPOINTS
+    ══════════════════════════════ */
+
+    /* Tablet / iPad (≤900px) */
+    @media (max-width: 900px) {
+      .plans-grid { grid-template-columns: 1fr 1fr; }
+
+      .faq-body { grid-template-columns: 200px 1fr; gap: 16px; }
+
+      .product-text { padding: 1.5rem 1.5rem; }
     }
 
-    .faq-category.active .faq-content {
-      max-height: 500px;
-      padding: 10px 15px 20px;
+    /* Small tablet / large mobile (≤768px) */
+    @media (max-width: 768px) {
+      /* Header → hamburger menu */
+      nav { display: none; }
+      .hamburger { display: flex; }
+      header { height: 60px; }
+      .nav-drawer { top: 60px; }
+
+      /* Hero */
+      .hero {
+        min-height: 60vh;
+        background-position: center center;
+        padding: 40px 20px;
+        justify-content: center;
+        text-align: center;
+      }
+      .hero-content { max-width: 100%; }
+
+      /* Products → stack vertically */
+      .product-row {
+        flex-direction: column !important;
+      }
+      .product-row .product-image,
+      .product-row .product-text {
+        flex: unset;
+        width: 100%;
+        order: unset !important;
+      }
+      .product-row.img-right .product-image { order: 1 !important; }
+      .product-row.img-right .product-text  { order: 2 !important; }
+      .product-image { height: 240px; border-radius: 12px; }
+      .product-text { padding: 1.25rem 0.5rem; }
+
+      /* Subscription plans → stack */
+      .plans-grid { grid-template-columns: 1fr; max-width: 420px; }
+
+      /* FAQ → stack */
+      .faq-body { grid-template-columns: 1fr; }
+      .faq-nav { display: flex; flex-wrap: wrap; border-radius: 10px; }
+      .faq-nav-item { flex: 1 1 auto; border-bottom: none; border-right: 1px solid var(--beige-dark); font-size: 0.78rem; padding: 12px 10px; text-align: center; }
+      .faq-nav-item:last-child { border-right: none; }
+      .faq-nav-item .arrow { display: none; }
+
+      /* Testimonials — show 1 card full width on mobile */
+      .card { flex: 0 0 80%; }
+      .track { padding: 0 10%; }
     }
 
-    .arrow {
-      transition: 0.3s;
+    /* Mobile (≤480px) */
+    @media (max-width: 480px) {
+      .hero { min-height: 55vh; }
+      .hero-content h1 { font-size: 24px; }
+
+      .product-image { height: 200px; }
+
+      .plan-row { flex-wrap: wrap; gap: 8px; }
+      .row-info { flex: 1 1 100%; }
+      .row-price { text-align: left; }
+
+      .faq-nav-item { font-size: 0.72rem; padding: 10px 6px; }
+
+      .footer { flex-direction: column; text-align: center; }
+
+      .card { flex: 0 0 90%; }
     }
 
-    .faq-category.active .arrow {
-      transform: rotate(180deg);
+    /* Large desktop (≥1400px) */
+    @media (min-width: 1400px) {
+      .products-section { max-width: 1400px; }
+      .plans-grid { max-width: 1000px; }
+      .faq-wrapper { max-width: 1100px; }
     }
-    html, body {
-  overflow-x: hidden;
-}
   </style>
-
 </head>
 
 <body>
 
+  <!-- HEADER -->
   <header>
-    <img src="images/transparent-logo.png" alt="Logo">
+    <img src="images/transparent-logo.png" alt="The Grain House Logo">
+
+    <!-- Desktop nav -->
     <nav>
       <a href="#about-us">About Us</a>
       <a href="#products">Products</a>
       <a href="#subscription-plans">Subscription Plans</a>
       <a href="#testimonials">What Customers Say</a>
       <a href="#faq">FAQ</a>
-      <a href="final.html" style="background: #fff; color: #111; text-decoration: none; font-size: 14px; font-weight: 600; padding: 8px 20px; border-radius: 6px;">Subscribe</a>
+      <a href="subscribe.html" class="nav-subscribe">Subscribe</a>
     </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </header>
 
+  <!-- Mobile nav drawer -->
+  <nav class="nav-drawer" id="navDrawer">
+    <a href="#about-us"          onclick="closeDrawer()">About Us</a>
+    <a href="#products"          onclick="closeDrawer()">Products</a>
+    <a href="#subscription-plans" onclick="closeDrawer()">Subscription Plans</a>
+    <a href="#testimonials"      onclick="closeDrawer()">What Customers Say</a>
+    <a href="#faq"               onclick="closeDrawer()">FAQ</a>
+    <a href="subscribe.html" class="nav-subscribe">Subscribe</a>
+  </nav>
+
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
       <h1>FUTURE SHAPED BY CHOICE.</h1>
@@ -966,606 +769,308 @@
     </div>
   </section>
 
-
-
-
-<!-- ABOUT 
-<section id="about" class="section beige">
-<h2>About Us</h2>
-<p>Most of us know what we should eat. The problem is finding the time to actually prepare it. Soaking grains overnight, grinding in the morning, fermenting through the day — traditional food demands time that modern life rarely offers. So we reach for what’s quick — polished rice, refined flour, packaged convenience — and slowly, without noticing, we drift away from the food our bodies were built for.
-<p></p>
-We didn’t build a health brand. We rebuilt a food habit — one that was always right, just waiting to be made convenient again.
-<p></p>
-What makes The Grain House different is not just what we make — it’s what we refuse to do. We don’t mix grains to cut costs, don’t add preservatives to extend shelf life, and don’t batch-produce and store. Every batch is single-grain because each millet has its own nutritional identity worth preserving, and every delivery is made the same day because freshness isn’t a feature — it’s the whole point.</p>
-</section> -->
+  <!-- ABOUT -->
   <section id="about-us" class="about-section">
-  <h2 class="about-title">About Us</h2>
-
-  <div class="about-blocks">
-
-    <div class="about-block">
-      <p>Most of us know what we should eat. The problem is finding the time to actually prepare it. Soaking grains overnight, grinding in the morning, fermenting through the day — traditional food demands time that modern life rarely offers. So we reach for what's quick — polished rice, refined flour, packaged convenience — and slowly, without noticing, we drift away from the food our bodies were built for.</p>
-    </div>
-
-    <div class="about-block">
-      <p>We didn't build a health brand. We rebuilt a food habit — one that was always right, just waiting to be made convenient again.</p>
-    </div>
-
-    <div class="about-block">
-      <p>What makes The Grain House different is not just what we make — it's what we refuse to do. We don't mix grains to cut costs, don't add preservatives to extend shelf life, and don't batch-produce and store. Every batch is single-grain because each millet has its own nutritional identity worth preserving, and every delivery is made the same day because freshness isn't a feature — it's the whole point.</p>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- PRODUCTS
-<section id="products" class="section light">
-<h2>Our Products</h2>
-<div class="grid">
-<div class="card">
-<img src="images/Batter-packets.jpeg" alt="Millet Batter">
-<h3>Millet Dosa Batter</h3>
-<p>Freshly prepared every day.</p>
-</div>
-
-<div class="card">
-<img src="images/peanut chutney.jpg" alt="Chutney">
-<h3>Peanut Chutney</h3>
-<p>Perfect pairing for dosa.</p>
-</div>
-</div>
-</section>
--->
-  <section id="products" class="products-section">
-  <h2 class="section-title">Our Products</h2>
-
-  <!-- Product 1: Image LEFT, Text RIGHT -->
-  <div class="product-row img-left">
-    <div class="product-image">
-      <!-- Replace src with your actual millet batter image -->
-      <img src="images/Batter-packets.jpeg" alt="Millet Dosa Batter" />
-    </div>
-    <div class="product-text">
-      <span class="product-tag">Freshly Made Daily</span>
-      <h3 class="product-name">Millet Dosa Batter</h3>
-      <p class="product-desc">
-        <!--Our signature millet dosa batter is crafted fresh every morning using a blend of
-        little millet, kodo millet, foxtail millet, and barnyard millet. No preservatives,
-        no additives — just wholesome goodness that brings ancient grains to your modern kitchen.-->
-        Soaked, stone-ground, and naturally fermented, our millet batter is crafted for both taste and comfort. 
-        It spreads smoothly, cooks into crisp dosas, and feels as good as it tastes — fresh, every single morning.
-        No preservatives, no additives — just wholesome goodness that brings ancient grains to your modern kitchen.
-      </p>
-      <ul class="product-highlights">
-        <li>4 varieties of Millet Batters - Foxtail, Kodo, Little, Barnyard</li>
-        <li>Naturally fermented, no preservatives</li>
-        <li>Rich in fibre, protein & minerals</li>
-        <li>Ready to cook — just pour and spread</li>
-      </ul>
-      
-    </div>
-  </div>
-
-  <hr class="product-divider" />
-
-  <!-- Product 2: Text LEFT, Image RIGHT -->
-  <div class="product-row img-right">
-    <div class="product-image">
-      <!-- Replace src with your actual peanut chutney image -->
-      <img src="images/peanut chutney.jpg" alt="Peanut Chutney" />
-    </div>
-    <div class="product-text">
-      <span class="product-tag">Perfect Pairing</span>
-      <h3 class="product-name">Peanut Chutney</h3>
-      <p class="product-desc">
-        <!--A creamy, flavour-packed peanut chutney made the traditional way — roasted peanuts,
-        fresh green chillies, curry leaves, and a perfect tempering of mustard seeds.
-        The ideal companion for every dosa, idli, or uttapam on your plate. -->
-        A perfect tasty add-on for your healthy dosa, made from roasted peanuts and blended to a smooth, rich texture, lightly seasoned to bring balance and warmth to every bite.
-      </p>
-      <ul class="product-highlights">
-        <li>Made from freshly roasted peanuts</li>
-        <li>No artificial flavours or colours</li>
-        <li>Traditional South Indian recipe</li>
-        <li>Goes well with all tiffin items</li>
-      </ul>
-      
-    </div>
-  </div>
-
-  <hr class="product-divider" />
-
-  <!-- Product 3: Image LEFT, Text RIGHT -->
-  <div class="product-row img-left">
-    <div class="product-image">
-      <!-- Replace src with your actual raw millets image -->
-      <img src="images/rawmillets.jpeg" alt="Raw Millets" />
-    </div>
-    <div class="product-text">
-      <span class="product-tag">Farm to Table</span>
-      <h3 class="product-name">Raw Millets</h3>
-      <p class="product-desc">
-        <!--Sourced directly from trusted farmers, our raw millets are cleaned, sorted, and
-        packed with care. Whether you want to cook your own batter, make millet rice, or
-        experiment with ancient grain recipes — we have the finest varieties ready for you. -->
-        We begin with millets that are chosen with care, not convenience. Each grain is cleaned and prepared to retain its natural quality — because what goes in determines everything that follows.
-      </p>
-      <ul class="product-highlights">
-        <li>Directly sourced from local farmers</li>
-        <li>Cleaned & hygienically packed</li>
-        <li>4 varieties of Millets - Foxtail, Kodo, Little, Barnyard</li>
-        <li>High nutritional value, gluten-free</li>
-      </ul>
-      
-    </div>
-  </div>
-
-</section>
-
-<!-- SUBSCRIPTIONS 
-<section id="subscriptions" class="section grey">
-<h2>Subscription Plans</h2>
-<div class="grid">
-<div class="card">
-<h3>Daily Plan</h3>
-<p>Fresh batter every day</p>
-</div>
-
-<div class="card">
-<h3>Weekly Plan</h3>
-<p>Flexible weekly delivery</p>
-</div>
-</div>
-</section>
--->
-  <section id="subscription-plans">
-  <h2 class="section-title">Subscription Plans</h2>
-<p class="section-sub">Choose a plan that fits your routine. We'll handle the rest.</p>
-
-<div class="plans-grid">
-
-  <!-- Individual / Couple -->
-  <div class="plan-card">
-    <div class="plan-icon">
-      <!-- Two people icon -->
-      <svg viewBox="0 0 40 40">
-        <circle cx="14" cy="13" r="5"/>
-        <path d="M4 32c0-5.523 4.477-10 10-10"/>
-        <circle cx="26" cy="13" r="5"/>
-        <path d="M36 32c0-5.523-4.477-10-10-10s-10 4.477-10 10"/>
-      </svg>
-    </div>
-    <h3 class="plan-name">Individual / Couple</h3>
-    <p class="plan-persons">Up to 2 persons</p>
-
-    <div class="plan-rows">
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">1 Day / week</p>
-          <p class="row-days">4 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>360</p>
-          <p class="price-label">per month</p>
-        </div>
+    <h2 class="about-title">About Us</h2>
+    <div class="about-blocks">
+      <div class="about-block">
+        <p>Most of us know what we should eat. The problem is finding the time to actually prepare it. Soaking grains overnight, grinding in the morning, fermenting through the day — traditional food demands time that modern life rarely offers. So we reach for what's quick — polished rice, refined flour, packaged convenience — and slowly, without noticing, we drift away from the food our bodies were built for.</p>
       </div>
-
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">2 Days / week</p>
-          <p class="row-days">8 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>720</p>
-          <p class="price-label">per month</p>
-        </div>
+      <div class="about-block">
+        <p>We didn't build a health brand. We rebuilt a food habit — one that was always right, just waiting to be made convenient again.</p>
       </div>
-
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="7" y1="14" x2="7" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/><line x1="17" y1="14" x2="17" y2="14" stroke-width="2.5"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">3 Days / week</p>
-          <p class="row-days">12 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>1080</p>
-          <p class="price-label">per month</p>
-        </div>
+      <div class="about-block">
+        <p>What makes The Grain House different is not just what we make — it's what we refuse to do. We don't mix grains to cut costs, don't add preservatives to extend shelf life, and don't batch-produce and store. Every batch is single-grain because each millet has its own nutritional identity worth preserving, and every delivery is made the same day because freshness isn't a feature — it's the whole point.</p>
       </div>
     </div>
-  </div>
-
-  <!-- Family -->
-  <div class="plan-card">
-    <div class="plan-icon">
-      <!-- Family icon -->
-      <svg viewBox="0 0 40 40">
-        <circle cx="12" cy="11" r="4"/>
-        <circle cx="28" cy="11" r="4"/>
-        <circle cx="20" cy="26" r="3.5"/>
-        <path d="M4 30c0-4.418 3.582-8 8-8"/>
-        <path d="M36 30c0-4.418-3.582-8-8-8"/>
-        <path d="M14 34c0-3.314 2.686-6 6-6s6 2.686 6 6"/>
-      </svg>
-    </div>
-    <h3 class="plan-name">Family</h3>
-    <p class="plan-persons">Up to 4 persons</p>
-
-    <div class="plan-rows">
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">1 Day / week</p>
-          <p class="row-days">4 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>720</p>
-          <p class="price-label">per month</p>
-        </div>
-      </div>
-
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="14" x2="8" y2="14" stroke-width="2.5"/><line x1="16" y1="14" x2="16" y2="14" stroke-width="2.5"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">2 Days / week</p>
-          <p class="row-days">8 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>1440</p>
-          <p class="price-label">per month</p>
-        </div>
-      </div>
-
-      <div class="plan-row">
-        <div class="row-icon">
-          <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="7" y1="14" x2="7" y2="14" stroke-width="2.5"/><line x1="12" y1="14" x2="12" y2="14" stroke-width="2.5"/><line x1="17" y1="14" x2="17" y2="14" stroke-width="2.5"/></svg>
-        </div>
-        <div class="row-info">
-          <p class="row-freq">3 Days / week</p>
-          <p class="row-days">12 delivery days / month</p>
-        </div>
-        <div class="row-price">
-          <p class="price-amount"><span>₹</span>2160</p>
-          <p class="price-label">per month</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
   </section>
-<!-- BENEFITS
-<section id="benefits" class="section beige">
-<h2>Why Choose Us</h2>
-<div class="features">
-<div class="feature">
-<h4>Healthy</h4>
-<p>Millets for better nutrition</p>
-</div>
 
-<div class="feature">
-<h4>Fresh</h4>
-<p>Prepared daily</p>
-</div>
+  <!-- PRODUCTS -->
+  <section id="products" class="products-section">
+    <h2 class="section-title">Our Products</h2>
 
-<div class="feature">
-<h4>Convenient</h4>
-<p>Doorstep delivery</p>
-</div>
-</div>
-</section>
--->
-<!-- TESTIMONIALS 
-<section id="testimonials" class="section light">
-<h2>What Customers Say</h2>
-<div class="grid">
-<div class="card"><p>"Amazing taste!"</p></div>
-<div class="card"><p>"Super convenient and healthy"</p></div>
-</div>
-</section> -->
-<!-- Testimonials -->
-<section id="testimonials" class="testimonials-section">
-<h2>What Customers Say</h2>
-
-<div class="carousel-wrapper">
-  <button class="arrow-btn" id="prevBtn" aria-label="Previous">&#8249;</button>
-  <div class="track-outer">
-    <div class="track" id="track"></div>
-  </div>
-  <button class="arrow-btn" id="nextBtn" aria-label="Next">&#8250;</button>
-</div>
-</section>
-
-<div class="dots" id="dots"></div>
-<!-- FAQ 
-<section id="faq" class="section grey">
-<h2>FAQs</h2>
-<p><b>How fresh is the batter?</b><br>Prepared every morning.</p>
-<p><b>Do you deliver daily?</b><br>Yes, based on subscription.</p>
-</section> -->
-  
-<!-- FAQ SECTION -->
-<div id="faq" class="faq-section">
-  <div class="faq-wrapper">
-  <div class="faq-header">
-    <h1>Frequently Asked Questions</h1>
-    <!--<p>Trusted by thousands of organizations across the globe</p>-->
-  </div>
-
-  <div class="faq-body">
-
-    <!-- Left Navigation -->
-    <nav class="faq-nav" id="faqNav">
-      <div class="faq-nav-item active" data-category="product">
-        🌾 Product &amp; Freshness <span class="arrow">›</span>
+    <div class="product-row img-left">
+      <div class="product-image">
+        <img src="images/Batter-packets.jpeg" alt="Millet Dosa Batter" />
       </div>
-      <div class="faq-nav-item" data-category="plans">
-        📦 Plans &amp; Pricing <span class="arrow">›</span>
+      <div class="product-text">
+        <span class="product-tag">Freshly Made Daily</span>
+        <h3 class="product-name">Millet Dosa Batter</h3>
+        <p class="product-desc">Soaked, stone-ground, and naturally fermented, our millet batter is crafted for both taste and comfort. It spreads smoothly, cooks into crisp dosas, and feels as good as it tastes — fresh, every single morning. No preservatives, no additives — just wholesome goodness that brings ancient grains to your modern kitchen.</p>
+        <ul class="product-highlights">
+          <li>4 varieties — Foxtail, Kodo, Little, Barnyard</li>
+          <li>Naturally fermented, no preservatives</li>
+          <li>Rich in fibre, protein &amp; minerals</li>
+          <li>Ready to cook — just pour and spread</li>
+        </ul>
       </div>
-      <div class="faq-nav-item" data-category="delivery">
-        🚚 Delivery &amp; Flexibility <span class="arrow">›</span>
-      </div>
-    </nav>
-
-    <!-- Right Accordion -->
-    <div class="faq-accordion" id="faqAccordion">
-      <!-- populated by JS -->
     </div>
 
-  </div>
-</div> 
-</div>
+    <hr class="product-divider" />
 
-<!-- CONTACT 
-<section id="contact" class="section beige">
-<h2>Contact Us</h2>
-<form>
-<input type="text" placeholder="Name">
-<input type="email" placeholder="Email">
-<textarea placeholder="Message"></textarea>
-<button class="btn btn-dark">Send</button>
-</form>
-</section>
--->
-<!-- FOOTER -->
-<div class="footer">
-<div>
-<p>© 2026 The Grain House</p>
-</div>
-<div>
-<p>Instagram | WhatsApp | Phone</p>
-</div>
-</div>
-<script> 
+    <div class="product-row img-right">
+      <div class="product-image">
+        <img src="images/peanut chutney.jpg" alt="Peanut Chutney" />
+      </div>
+      <div class="product-text">
+        <span class="product-tag">Perfect Pairing</span>
+        <h3 class="product-name">Peanut Chutney</h3>
+        <p class="product-desc">A perfect tasty add-on for your healthy dosa, made from roasted peanuts and blended to a smooth, rich texture, lightly seasoned to bring balance and warmth to every bite.</p>
+        <ul class="product-highlights">
+          <li>Made from freshly roasted peanuts</li>
+          <li>No artificial flavours or colours</li>
+          <li>Traditional South Indian recipe</li>
+          <li>Goes well with all tiffin items</li>
+        </ul>
+      </div>
+    </div>
 
-/* ===== CAROUSEL FIX ===== */
-//let index = 0;
+    <hr class="product-divider" />
 
-//const track = document.getElementById("carouselTrack");
-//const reviews = document.querySelectorAll(".review");
+    <div class="product-row img-left">
+      <div class="product-image">
+        <img src="images/rawmillets.jpeg" alt="Raw Millets" />
+      </div>
+      <div class="product-text">
+        <span class="product-tag">Farm to Table</span>
+        <h3 class="product-name">Raw Millets</h3>
+        <p class="product-desc">We begin with millets that are chosen with care, not convenience. Each grain is cleaned and prepared to retain its natural quality — because what goes in determines everything that follows.</p>
+        <ul class="product-highlights">
+          <li>Directly sourced from local farmers</li>
+          <li>Cleaned &amp; hygienically packed</li>
+          <li>4 varieties — Foxtail, Kodo, Little, Barnyard</li>
+          <li>High nutritional value, gluten-free</li>
+        </ul>
+      </div>
+    </div>
+  </section>
 
-//function updateCarousel() {
-  //reviews.forEach(r => r.classList.remove("active"));
-  //reviews[index].classList.add("active");
+  <!-- SUBSCRIPTION PLANS -->
+  <section id="subscription-plans">
+    <h2 class="sub-title">Subscription Plans</h2>
+    <p class="section-sub">Choose a plan that fits your routine. We'll handle the rest.</p>
 
-  //const cardWidth = reviews[0].offsetWidth + 20;
-  //const containerWidth = document.querySelector(".carousel").offsetWidth;
-
-  //const offset = index * cardWidth - (containerWidth / 2 - cardWidth / 2);
-
-  //track.style.transform = `translateX(-${offset}px)`;
-//}
-
-//function moveSlide(direction) {
-  //index = (index + direction + reviews.length) % reviews.length; // ✅ LOOP FIX
-  //updateCarousel();
-//}
-
-//window.addEventListener("resize", updateCarousel);
-//updateCarousel();
-  const reviews = [
-  { name: "Rahul",  role: "Manager",   image: null, review: '"Amazing taste!"' },
-  { name: "Payal", role: "Home Maker",  image: null, review: '"My children love it — the dosas are delicious."' },
-  { name: "Priya",  role: "Developer", image: null, review: '"Loved it!"' },
-  { name: "Divya",  role: "Software Developer",   image: null, review: '"Their plans are very flexible, and I usually get my delivery before breakfast. I’ve recommended it to my colleagues too."' },
-  { name: "Sneha",  role: "Analyst",   image: null, review: '"Fresh and delicious!"' },
-  { name: "Vikram", role: "Engineer",  image: null, review: '"I took this for my parents with diabetes, and we’ve seen positive changes since they started having it."' }
-];
-
-let active = 1;
-const track  = document.getElementById('track');
-const dotsEl = document.getElementById('dots');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-function headSVG(opacity) {
-  return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="32" cy="21" r="13" fill="rgba(255,255,255,${opacity})"/>
-    <path d="M4 64c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(255,255,255,${opacity})"/>
-  </svg>`;
-}
-
-function build() {
-  track.innerHTML = '';
-  dotsEl.innerHTML = '';
-
-  reviews.forEach((r, i) => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="avatar">${r.image ? `<img src="${r.image}" alt="${r.name}"/>` : headSVG(0.6)}</div>
-      <p class="name">${r.name}</p>
-      <p class="role">${r.role}</p>
-      <p class="review">${r.review}</p>
-    `;
-    track.appendChild(card);
-
-    const dot = document.createElement('button');
-    dot.className = 'dot';
-    dot.setAttribute('aria-label', `Review ${i + 1}`);
-    dot.addEventListener('click', () => goTo(i));
-    dotsEl.appendChild(dot);
-  });
-
-  refresh();
-}
-
-function refresh() {
-  const cards = track.querySelectorAll('.card');
-  const dots  = dotsEl.querySelectorAll('.dot');
-
-  cards.forEach((c, i) => {
-    c.classList.toggle('active', i === active);
-    c.classList.toggle('side',   i !== active);
-  });
-
-  dots.forEach((d, i) => d.classList.toggle('active', i === active));
-
-  // Keep active card in center slot (slot index 1 of the 3 visible)
-  const pct = -(active - 1) * 33.333;
-  track.style.transform = `translateX(${pct}%)`;
-
-  prevBtn.disabled = active === 0;
-  nextBtn.disabled = active === reviews.length - 1;
-}
-
-function goTo(i) {
-  active = Math.max(0, Math.min(reviews.length - 1, i));
-  refresh();
-}
-
-prevBtn.addEventListener('click', () => goTo(active - 1));
-nextBtn.addEventListener('click', () => goTo(active + 1));
-
-build();
-
-  
-/* ===== FAQ FIX ===== */
-//const faqHeaders = document.querySelectorAll(".faq-header");
-
-//faqHeaders.forEach(header => {
- // header.addEventListener("click", () => {
-   // const parent = header.parentElement;
-
-    // close others
-  //  document.querySelectorAll(".faq-category").forEach(item => {
-     // if (item !== parent) {
-     //   item.classList.remove("active");
-    //  }
-   // });
-
-    // toggle current
-   // parent.classList.toggle("active");
- // });
-//});
-
-const faqData = {
-    product: [
-      {
-        q: "Is the batter freshly made every day?",
-        a: "Yes, every batch is prepared fresh each morning and delivered the same day."
-      },
-      {
-        q: "How long does the batter stay fresh?",
-        a: "It stays fresh for 4–5 days when refrigerated."
-      },
-      {
-        q: "Is your batter healthier than regular dosa batter?",
-        a: "Millets support better digestion, sustained energy, and overall wellness, making them a better alternative to refined grains."
-      },
-      {
-        q: "Do you add preservatives or additives?",
-        a: "No, our batter is completely free from preservatives and unnecessary additives.",
-        open: true
-      }
-    ],
-    plans: [
-      {
-        q: "How does the monthly plan work? Is it based on calendar days?",
-        a: "Our plans are based on delivery days, not calendar dates. For example, a 2-day plan includes 8 delivery days, and your plan continues until all delivery days are completed.",
-        open: true
-      },
-      {
-        q: "Do you offer plans for different household sizes?",
-        a: "Yes, we have plans designed for individuals/couples and families, based on your weekly needs."
-      }
-    ],
-    delivery: [
-      {
-        q: "How can I place an order?",
-        a: "You can place your order directly through WhatsApp.",
-        open: true
-      },
-      {
-        q: "Can I choose my delivery days?",
-        a: "Yes, you can select and change your delivery days anytime between Monday and Sunday."
-      },
-      {
-        q: "What if I'm traveling or out of station?",
-        a: "You can pause, skip, or reschedule deliveries anytime — so your plan works around your routine."
-      },
-      {
-        q: "What if I need extra batter?",
-        a: "You can increase your quantity with just 6 hours' notice — perfect for unexpected needs."
-      }
-    ]
-  };
-
-  const accordion = document.getElementById('faqAccordion');
-  const navItems = document.querySelectorAll('.faq-nav-item');
-
-  function renderCategory(category) {
-    const items = faqData[category] || [];
-    accordion.innerHTML = '';
-    items.forEach((item, i) => {
-      const div = document.createElement('div');
-      div.className = 'faq-item' + (item.open ? ' open' : '');
-      div.innerHTML = `
-        <div class="faq-question">
-          <span>${item.q}</span>
-          <span class="faq-toggle">${item.open ? '−' : '+'}</span>
+    <div class="plans-grid">
+      <!-- Individual / Couple -->
+      <div class="plan-card">
+        <div class="plan-icon">
+          <svg viewBox="0 0 40 40"><circle cx="14" cy="13" r="5"/><path d="M4 32c0-5.523 4.477-10 10-10"/><circle cx="26" cy="13" r="5"/><path d="M36 32c0-5.523-4.477-10-10-10s-10 4.477-10 10"/></svg>
         </div>
-        <div class="faq-answer"><p>${item.a}</p></div>
-      `;
-      div.querySelector('.faq-question').addEventListener('click', () => {
-        const isOpen = div.classList.contains('open');
-        document.querySelectorAll('.faq-item').forEach(el => {
-          el.classList.remove('open');
-          el.querySelector('.faq-toggle').textContent = '+';
+        <h3 class="plan-name">Individual / Couple</h3>
+        <p class="plan-persons">Up to 2 persons</p>
+        <div class="plan-rows">
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">1 Day / week</p><p class="row-days">4 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>360</p><p class="price-label">per month</p></div>
+          </div>
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">2 Days / week</p><p class="row-days">8 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>720</p><p class="price-label">per month</p></div>
+          </div>
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">3 Days / week</p><p class="row-days">12 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>1080</p><p class="price-label">per month</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Family -->
+      <div class="plan-card">
+        <div class="plan-icon">
+          <svg viewBox="0 0 40 40"><circle cx="12" cy="11" r="4"/><circle cx="28" cy="11" r="4"/><circle cx="20" cy="26" r="3.5"/><path d="M4 30c0-4.418 3.582-8 8-8"/><path d="M36 30c0-4.418-3.582-8-8-8"/><path d="M14 34c0-3.314 2.686-6 6-6s6 2.686 6 6"/></svg>
+        </div>
+        <h3 class="plan-name">Family</h3>
+        <p class="plan-persons">Up to 4 persons</p>
+        <div class="plan-rows">
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">1 Day / week</p><p class="row-days">4 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>720</p><p class="price-label">per month</p></div>
+          </div>
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">2 Days / week</p><p class="row-days">8 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>1440</p><p class="price-label">per month</p></div>
+          </div>
+          <div class="plan-row">
+            <div class="row-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+            <div class="row-info"><p class="row-freq">3 Days / week</p><p class="row-days">12 delivery days / month</p></div>
+            <div class="row-price"><p class="price-amount"><span>₹</span>2160</p><p class="price-label">per month</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials" class="testimonials-section">
+    <h2>What Customers Say</h2>
+    <div class="carousel-wrapper">
+      <button class="arrow-btn" id="prevBtn" aria-label="Previous">&#8249;</button>
+      <div class="track-outer">
+        <div class="track" id="track"></div>
+      </div>
+      <button class="arrow-btn" id="nextBtn" aria-label="Next">&#8250;</button>
+    </div>
+  </section>
+  <div class="dots" id="dots"></div>
+
+  <!-- FAQ -->
+  <div id="faq" class="faq-section">
+    <div class="faq-wrapper">
+      <div class="faq-header">
+        <h1>Frequently Asked Questions</h1>
+      </div>
+      <div class="faq-body">
+        <nav class="faq-nav" id="faqNav">
+          <div class="faq-nav-item active" data-category="product">🌾 Product &amp; Freshness <span class="arrow">›</span></div>
+          <div class="faq-nav-item" data-category="plans">📦 Plans &amp; Pricing <span class="arrow">›</span></div>
+          <div class="faq-nav-item" data-category="delivery">🚚 Delivery &amp; Flexibility <span class="arrow">›</span></div>
+        </nav>
+        <div class="faq-accordion" id="faqAccordion"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><p>© 2026 The Grain House</p></div>
+    <div><p>Instagram | WhatsApp | Phone</p></div>
+  </div>
+
+  <script>
+    /* ── Hamburger ── */
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    hamburger.addEventListener('click', () => navDrawer.classList.toggle('open'));
+    function closeDrawer() { navDrawer.classList.remove('open'); }
+
+    /* ── Carousel ── */
+    const reviewsData = [
+      { name: "Rahul",  role: "Manager",           image: null, review: '"Amazing taste!"' },
+      { name: "Payal",  role: "Home Maker",         image: null, review: '"My children love it — the dosas are delicious."' },
+      { name: "Priya",  role: "Developer",          image: null, review: '"Loved it!"' },
+      { name: "Divya",  role: "Software Developer", image: null, review: '"Their plans are very flexible, and I usually get my delivery before breakfast."' },
+      { name: "Sneha",  role: "Analyst",            image: null, review: '"Fresh and delicious!"' },
+      { name: "Vikram", role: "Engineer",           image: null, review: '"I took this for my parents with diabetes, and we\'ve seen positive changes since they started having it."' }
+    ];
+
+    let active = 1;
+    const track  = document.getElementById('track');
+    const dotsEl = document.getElementById('dots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function headSVG(o) {
+      return `<svg viewBox="0 0 64 64" fill="none"><circle cx="32" cy="21" r="13" fill="rgba(255,255,255,${o})"/><path d="M4 64c0-15.464 12.536-28 28-28s28 12.536 28 28" fill="rgba(255,255,255,${o})"/></svg>`;
+    }
+
+    function buildCarousel() {
+      track.innerHTML = ''; dotsEl.innerHTML = '';
+      reviewsData.forEach((r, i) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `<div class="avatar">${r.image ? `<img src="${r.image}" alt="${r.name}"/>` : headSVG(0.6)}</div><p class="name">${r.name}</p><p class="role">${r.role}</p><p class="review">${r.review}</p>`;
+        track.appendChild(card);
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.setAttribute('aria-label', `Review ${i + 1}`);
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+      });
+      refresh();
+    }
+
+    function refresh() {
+      const cards = track.querySelectorAll('.card');
+      cards.forEach((c, i) => {
+        c.classList.toggle('active', i === active);
+        c.classList.toggle('side',   i !== active);
+      });
+      dotsEl.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === active));
+
+      // Pixel-based centering so it works on all screen sizes including mobile
+      const wrapperW = track.parentElement.offsetWidth;
+      const cardW = cards[0] ? cards[0].offsetWidth : wrapperW / 3;
+      // Center the active card: move its left edge to (wrapperW/2 - cardW/2)
+      const activeLeft = active * cardW;
+      const offset = activeLeft - (wrapperW - cardW) / 2;
+      track.style.webkitTransform = `translateX(${-offset}px)`;
+      track.style.transform = `translateX(${-offset}px)`;
+
+      prevBtn.disabled = active === 0;
+      nextBtn.disabled = active === reviewsData.length - 1;
+    }
+
+    window.addEventListener('resize', refresh);
+
+    function goTo(i) { active = Math.max(0, Math.min(reviewsData.length - 1, i)); refresh(); }
+    prevBtn.addEventListener('click', () => goTo(active - 1));
+    nextBtn.addEventListener('click', () => goTo(active + 1));
+    buildCarousel();
+
+    /* ── FAQ ── */
+    const faqData = {
+      product: [
+        { q: "Is the batter freshly made every day?", a: "Yes, every batch is prepared fresh each morning and delivered the same day." },
+        { q: "How long does the batter stay fresh?", a: "It stays fresh for 4–5 days when refrigerated." },
+        { q: "Is your batter healthier than regular dosa batter?", a: "Millets support better digestion, sustained energy, and overall wellness, making them a better alternative to refined grains." },
+        { q: "Do you add preservatives or additives?", a: "No, our batter is completely free from preservatives and unnecessary additives.", open: true }
+      ],
+      plans: [
+        { q: "How does the monthly plan work?", a: "Our plans are based on delivery days, not calendar dates. For example, a 2-day plan includes 8 delivery days, and your plan continues until all delivery days are completed.", open: true },
+        { q: "Do you offer plans for different household sizes?", a: "Yes, we have plans designed for individuals/couples and families, based on your weekly needs." }
+      ],
+      delivery: [
+        { q: "How can I place an order?", a: "You can place your order directly through WhatsApp.", open: true },
+        { q: "Can I choose my delivery days?", a: "Yes, you can select and change your delivery days anytime between Monday and Sunday." },
+        { q: "What if I'm traveling or out of station?", a: "You can pause, skip, or reschedule deliveries anytime — so your plan works around your routine." },
+        { q: "What if I need extra batter?", a: "You can increase your quantity with just 6 hours' notice — perfect for unexpected needs." }
+      ]
+    };
+
+    const accordion = document.getElementById('faqAccordion');
+    const navItems = document.querySelectorAll('.faq-nav-item');
+
+    function renderCategory(category) {
+      accordion.innerHTML = '';
+      (faqData[category] || []).forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'faq-item' + (item.open ? ' open' : '');
+        div.innerHTML = `<div class="faq-question"><span>${item.q}</span><span class="faq-toggle">${item.open ? '−' : '+'}</span></div><div class="faq-answer"><p>${item.a}</p></div>`;
+        div.querySelector('.faq-question').addEventListener('click', () => {
+          const isOpen = div.classList.contains('open');
+          document.querySelectorAll('.faq-item').forEach(el => { el.classList.remove('open'); el.querySelector('.faq-toggle').textContent = '+'; });
+          if (!isOpen) { div.classList.add('open'); div.querySelector('.faq-toggle').textContent = '−'; }
         });
-        if (!isOpen) {
-          div.classList.add('open');
-          div.querySelector('.faq-toggle').textContent = '−';
+        accordion.appendChild(div);
+      });
+    }
+
+    navItems.forEach(nav => {
+      nav.addEventListener('click', () => {
+        navItems.forEach(n => n.classList.remove('active'));
+        nav.classList.add('active');
+        renderCategory(nav.dataset.category);
+      });
+    });
+
+    renderCategory('product');
+
+    /* ── Smooth scroll polyfill for Safari ── */
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       });
-      accordion.appendChild(div);
     });
-  }
 
-  navItems.forEach(nav => {
-    nav.addEventListener('click', () => {
-      navItems.forEach(n => n.classList.remove('active'));
-      nav.classList.add('active');
-      renderCategory(nav.dataset.category);
-    });
-  });
-
-  renderCategory('product');
-
-</script>
+  </script>
 </body>
-
 </html>
