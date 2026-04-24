@@ -117,7 +117,7 @@
     .hero {
       min-height: 100vh;
       min-height: -webkit-fill-available;
-      background: url('images/hero-image.jpeg') center top / cover no-repeat;
+      background: url('images/hero-image.jpeg') right center / auto 100% no-repeat;
       display: flex;
       align-items: center;
       padding: clamp(80px, 10vw, 120px) clamp(20px, 8vw, 120px) clamp(40px, 6vw, 80px);
@@ -707,8 +707,11 @@
 
     /* Mobile (≤480px) */
     @media (max-width: 480px) {
-      .hero { min-height: 55vh; }
-      .hero-content h1 { font-size: 24px; }
+      .hero { min-height: 70vh; background-position: 65% top; }
+      .hero-content {
+    max-width: 58%;
+  }
+      .hero-content h1 { font-size: 22px; }
 
       .product-image { height: 200px; }
 
