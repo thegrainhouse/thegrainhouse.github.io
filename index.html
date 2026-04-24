@@ -118,7 +118,7 @@
       height: 85dvh;
       min-height: -webkit-fill-available;
       background-color: #e8d5c4;
-      background: url('images/hero-image.jpeg') 60% center/ cover no-repeat;
+      background: url('images/hero-image.jpeg') 40% center/ cover no-repeat;
       display: flex;
       align-items: center;
       padding: clamp(80px, 10vw, 120px) clamp(20px, 8vw, 120px) clamp(40px, 6vw, 80px);
@@ -659,7 +659,8 @@
     /* Small tablet / large mobile (≤768px) */
     @media (max-width: 768px) {
       /* Header → hamburger menu */
-      nav { display: none; }
+      .nav { display: none;
+           }
       .hamburger { display: flex; }
       header { height: 60px; }
       .nav-drawer { top: 60px; }
@@ -669,8 +670,8 @@
         position: relative;
         min-height: 85vh;
         background: url('images/hero-image.jpeg') right center / cover no-repeat;
-        background-position: center top;
-        background-size: contain;
+        
+        
         padding: 40px 20px;
         display: flex;
         justify-content: flex-start;
