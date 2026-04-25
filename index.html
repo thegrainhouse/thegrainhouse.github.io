@@ -121,19 +121,19 @@
       display: flex;
       align-items: center;
       padding: clamp(40px, 5vw, 100px) clamp(20px, 8vw, 120px);
-      background: #dcd3c7;
+      
 }
 
 .hero-img {
   position: absolute;
-  top: 50%;
+  top: 0;
   right: 0;
-  left: 50%;
+  left: 0;
   transform: translate(-50%, -50%);
   height: 100%;
-  width: auto;          /* 👈 KEY: prevents cropping */
-  object-fit: contain;  /* 👈 full packet always visible */
-  z-index: 1
+  width: 100%;          /* 👈 KEY: prevents cropping */
+  object-fit: cover;  /* 👈 full packet always visible */
+  
 }
 
     .hero-content {
