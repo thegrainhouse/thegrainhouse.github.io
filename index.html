@@ -671,19 +671,16 @@
       .nav-drawer { top: 60px; }
 
       /* Hero */
+      .
       .hero {
-        position: relative;
-        min-height: 95vh;
-        background: url('images/hero-image.jpeg');
-        background-position: 10% center;
-        background-size: cover;
-        padding: 40px 20px;
-        display: flex;
-        justify-content: flex-start;
-        text-align: left;
-        align-items: center;
-        overflow: hidden;
-      }
+  height: 95vh;
+  min-height: 95vh;
+}
+      .hero-img {
+  display: block;             /* keep the img tag visible */
+  object-fit: cover;
+  object-position: 65% top;  /* shifts image so full packet visible, not cut left */
+}
       .hero-content { max-width: 55%; 
                     position: absolute;
                     left: 20px;
