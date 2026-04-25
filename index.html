@@ -671,32 +671,32 @@
       .nav-drawer { top: 60px; }
 
       /* Hero */
-     .hero {
-    height: 100vh;
-    min-height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background-image: url('images/hero-image.jpeg');
-    background-repeat: no-repeat;
-    background-size: 75%;           /* controls packet size — smaller % = smaller packet */
-    background-position: right bottom;
-    background-color: #eddfc8;     /* fills left side behind text */
-    display: flex;
-    align-items: center;
-  }
+    .hero {
+  position: relative;
+  height: 95vh;
+  min-height: 95vh;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
       .hero-img {
-    display: none;                  /* hide the <img> tag on mobile */
-  }
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 75% top;
+}
 
-     .hero-content {
-    position: relative;
-    left: unset;
-    bottom: unset;
-    width: 48%;
-    max-width: 48%;
-    padding: 0 0 0 24px;
-    z-index: 2;
-  }
+    .hero-content {
+  position: relative;
+  z-index: 2;
+  left: unset;
+  bottom: unset;
+  max-width: 70%;
+  padding: 0 0 40px 20px;
+}
 
   .hero-content h1 {
     font-size: 28px;
