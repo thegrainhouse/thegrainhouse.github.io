@@ -116,20 +116,24 @@
     /* ── HERO ── */
     .hero {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
       display: flex;
       align-items: center;
       padding: clamp(40px, 5vw, 100px) clamp(20px, 8vw, 120px);
+      background: #dcd3c7;
 }
 
 .hero-img {
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   height: 100%;
   width: auto;          /* 👈 KEY: prevents cropping */
   object-fit: contain;  /* 👈 full packet always visible */
+  z-index: 1
 }
 
     .hero-content {
