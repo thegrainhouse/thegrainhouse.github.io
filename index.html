@@ -673,20 +673,50 @@
       /* Hero */
       .
       .hero {
-  height: 95vh;
-  min-height: 95vh;
-}
+    height: auto;
+    min-height: 100vh;
+    flex-direction: column;
+    align-items: stretch;
+    overflow: visible;
+    background: #f0e8dc;    /* match the beige tone of your hero image bg */
+  }
       .hero-img {
-  display: block;             /* keep the img tag visible */
-  object-fit: cover;
-  object-position: 90% top;  /* shifts image so full packet visible, not cut left */
-}
-      .hero-content { max-width: 55%; 
-                    position: absolute;
-                    left: 20px;
-    bottom: 40px;
-                     z-index: 2;
-                    }
+    position: static;       /* take it out of absolute so it flows normally */
+    width: 100%;
+    height: 55vw;           /* image takes top portion */
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+      .hero-content {
+    position: static;       /* flows below image */
+    left: unset;
+    bottom: unset;
+    max-width: 100%;
+    padding: 32px 24px 40px;
+    z-index: 2;
+    background: #f0e8dc;
+  }
+     .hero-content h1 {
+    font-size: 36px;
+    line-height: 1.15;
+    color: #000;
+  }
+      .hero-content p {
+    font-size: 15px;
+    margin-top: 12px;
+    color: #333;
+    line-height: 1.7;
+  }
+      .btn-dark {
+    margin-top: 24px;
+    padding: 16px 32px;
+    font-size: 15px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
 
       /* Products → stack vertically */
       .product-row {
