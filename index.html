@@ -671,22 +671,51 @@
       .nav-drawer { top: 60px; }
 
       /* Hero */
-      .
-      .hero {
-  height: 95vh;
-  min-height: 95vh;
-}
+     .hero {
+    height: 100vh;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-image: url('images/hero-image.jpeg');
+    background-repeat: no-repeat;
+    background-size: 75%;           /* controls packet size — smaller % = smaller packet */
+    background-position: right bottom;
+    background-color: #eddfc8;     /* fills left side behind text */
+    display: flex;
+    align-items: center;
+  }
       .hero-img {
-  display: block;             /* keep the img tag visible */
-  object-fit: cover;
-  object-position: 90% top;  /* shifts image so full packet visible, not cut left */
-}
-      .hero-content { max-width: 55%; 
-                    position: absolute;
-                    left: 20px;
-    bottom: 40px;
-                     z-index: 2;
-                    }
+    display: none;                  /* hide the <img> tag on mobile */
+  }
+
+     .hero-content {
+    position: relative;
+    left: unset;
+    bottom: unset;
+    width: 48%;
+    max-width: 48%;
+    padding: 0 0 0 24px;
+    z-index: 2;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+    line-height: 1.2;
+    color: #000;
+  }
+      .hero-content p {
+    font-size: 13px;
+    margin-top: 12px;
+    line-height: 1.6;
+    color: #222;
+  }
+      .btn-dark {
+    margin-top: 20px;
+    padding: 13px 22px;
+    font-size: 13px;
+    border-radius: 6px;
+    display: inline-block;
+  }
 
       /* Products → stack vertically */
       .product-row {
