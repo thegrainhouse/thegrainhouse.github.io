@@ -750,7 +750,18 @@
       .card { flex: 0 0 80%; }
       .track { padding: 0 10%; }
     }
-
+.footer div:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .desktop-pipe {
+        display: none;
+      }
+      .phone {
+        white-space: nowrap;
+      }
     /* Mobile (≤480px) */
     @media (max-width: 480px) {
       .hero { min-height: 70vh; background-position: 65% top; }
@@ -1006,7 +1017,7 @@
     <div><p>Instagram | WhatsApp | Phone</p></div>
   </div> -->
 
-  <!-- FOOTER -->
+  <!-- FOOTER 
 <div class="footer">
   <div><p>© 2026 The Grain House</p></div>
   <div>
@@ -1016,7 +1027,17 @@
     <span style="color: #f5f0e6;">Phone - +91 9502487169</span>
     
   </div>
-</div>
+</div> -->
+<!-- FOOTER -->
+<div class="footer">
+  <div><p>© 2026 The Grain House</p></div>
+  <div>
+    <a href="https://instagram.com/#" target="_blank" style="color: #f5f0e6; text-decoration: none;">Instagram</a>
+    |
+    <a href="https://wa.me/#" target="_blank" style="color: #f5f0e6; text-decoration: none;">WhatsApp</a>
+    <span class="desktop-pipe"> | </span>
+    <span class="phone" style="color: #f5f0e6; white-space: nowrap;">Phone - +91 ##########</span>
+  </div>
 
   <script>
     /* ── Hamburger ── */
